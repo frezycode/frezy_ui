@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class Button extends StatelessWidget {
   const Button({
     super.key,
-    required this.title,
+    this.title,
+    this.titleWidget,
     this.onPressed,
     this.width,
     this.height = 60,
   });
 
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
   final VoidCallback? onPressed;
   final double? width;
   final double height;
@@ -28,13 +30,14 @@ class Button extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
         ),
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.white,
-          ),
-        ),
+        child: titleWidget ??
+            Text(
+              title!,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
       ),
     );
   }
