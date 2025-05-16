@@ -11,6 +11,7 @@ class AdaptiveLayout extends StatelessWidget {
     this.formFactor = FormFactor.standart,
     this.maxHeight,
     this.maxWidth,
+    this.useConstraints = false,
   });
 
   final Widget child;
@@ -19,14 +20,15 @@ class AdaptiveLayout extends StatelessWidget {
   final FormFactor formFactor;
   final double? maxHeight;
   final double? maxWidth;
+  final bool useConstraints;
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveLayoutBuilder(
       formFactor: formFactor,
       builder: (context, deviceScreenSize) {
-        final useConstraints = tablet == null && desktop == null;
-        if (useConstraints) {
+        final forceConstraints = tablet == null && desktop == null;
+        if (useConstraints || forceConstraints) {
           return Center(
             child: ConstrainedBox(
               constraints: BoxConstraints.expand(
