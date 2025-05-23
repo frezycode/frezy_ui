@@ -1,0 +1,67 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+
+class PinCodeField extends StatelessWidget {
+  const PinCodeField({
+    super.key,
+    required this.controller,
+    required this.onCompleted,
+    this.validator,
+  });
+
+  final TextEditingController controller;
+  final Function(String code) onCompleted;
+  final FormFieldValidator<String>? validator;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final width = MediaQuery.of(context).size.width;
+    final fieldWidth = (width - 48 - (4 * 10)) / 4;
+    return PinCodeTextField(
+      appContext: context,
+      length: 4,
+      useHapticFeedback: !kIsWeb,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      keyboardType: TextInputType.number,
+      animationType: AnimationType.scale,
+      hintCharacter: '_',
+      textStyle: TextStyle(
+        fontSize: fieldWidth / 2,
+        color: theme.primaryColorDark,
+        fontWeight: FontWeight.bold,
+      ),
+      validator: validator,
+      pinTheme: PinTheme(
+        shape: PinCodeFieldShape.box,
+        borderRadius: BorderRadius.circular(10),
+        fieldHeight: fieldWidth + 5,
+        fieldWidth: fieldWidth,
+        fieldOuterPadding: const EdgeInsets.only(right: 10),
+        inactiveFillColor: theme.hintColor.withOpacity(0.3),
+        inactiveColor: Colors.transparent,
+        selectedFillColor: Colors.transparent,
+        selectedColor: theme.primaryColor,
+        activeColor: theme.primaryColor,
+        activeFillColor: Colors.transparent,
+      ),
+      animationDuration: const Duration(milliseconds: 300),
+      backgroundColor: Colors.transparent,
+      enableActiveFill: true,
+      enablePinAutofill: false,
+      showCursor: true,
+      autovalidateMode: AutovalidateMode.disabled,
+      cursorColor: theme.primaryColor,
+      cursorWidth: 3,
+      controller: controller,
+      onCompleted: onCompleted,
+      onChanged: (value) {},
+      onTap: () {
+        if (controller.text.length == 4) {
+          controller.text = '';
+        }
+      },
+    );
+  }
+}
