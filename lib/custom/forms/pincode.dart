@@ -17,30 +17,33 @@ class PinCodeField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final width = MediaQuery.of(context).size.width;
-    final fieldWidth = (width - 48 - (4 * 10)) / 4;
     return PinCodeTextField(
       appContext: context,
       length: 4,
       useHapticFeedback: !kIsWeb,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       keyboardType: TextInputType.number,
       animationType: AnimationType.scale,
-      hintCharacter: '_',
+      hintCharacter: '0',
       textStyle: TextStyle(
-        fontSize: fieldWidth / 2,
-        color: theme.primaryColorDark,
+        fontSize: 40,
+        color: theme.primaryColor,
+        fontWeight: FontWeight.bold,
+      ),
+      hintStyle: TextStyle(
+        fontSize: 40,
+        color: theme.textTheme.bodyMedium?.color,
         fontWeight: FontWeight.bold,
       ),
       validator: validator,
       pinTheme: PinTheme(
+        fieldHeight: 90,
+        fieldWidth: 80,
         shape: PinCodeFieldShape.box,
-        borderRadius: BorderRadius.circular(10),
-        fieldHeight: fieldWidth + 5,
-        fieldWidth: fieldWidth,
+        borderRadius: BorderRadius.circular(16),
         fieldOuterPadding: const EdgeInsets.only(right: 10),
-        inactiveFillColor: theme.hintColor.withOpacity(0.3),
-        inactiveColor: Colors.transparent,
+        inactiveFillColor: Colors.transparent,
+        inactiveColor: theme.textTheme.bodyMedium?.color,
         selectedFillColor: Colors.transparent,
         selectedColor: theme.primaryColor,
         activeColor: theme.primaryColor,
