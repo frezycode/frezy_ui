@@ -9,8 +9,10 @@ class Button extends StatelessWidget {
     this.width,
     this.height = 60,
     this.backgroundColor,
+    this.loading = false,
   });
 
+  final bool loading;
   final String? title;
   final Widget? titleWidget;
   final VoidCallback? onPressed;
@@ -25,21 +27,27 @@ class Button extends StatelessWidget {
       width: width ?? double.infinity,
       height: height,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: loading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? theme.primaryColor,
+          disabledBackgroundColor:
+              loading ? theme.colorScheme.primaryContainer : null,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
         ),
-        child: titleWidget ??
-            Text(
-              title!,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ),
+        child: loading
+            ? CircularProgressIndicator(
+                color: theme.colorScheme.onPrimaryContainer,
+              )
+            : titleWidget ??
+                Text(
+                  title!,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
       ),
     );
   }
