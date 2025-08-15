@@ -10,6 +10,7 @@ class Button extends StatelessWidget {
     this.height = 60,
     this.backgroundColor,
     this.loading = false,
+    this.borderRadius,
   });
 
   final bool loading;
@@ -19,6 +20,7 @@ class Button extends StatelessWidget {
   final double? width;
   final double height;
   final Color? backgroundColor;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class Button extends StatelessWidget {
           disabledBackgroundColor:
               loading ? theme.colorScheme.primaryContainer : null,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: borderRadius ?? BorderRadius.circular(16),
           ),
         ),
         child: loading
